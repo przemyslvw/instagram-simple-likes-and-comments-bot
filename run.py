@@ -7,10 +7,16 @@ def load_accounts():
     try:
         with open("accounts.json", "r") as file:
             accounts = json.load(file)
-            print(accounts)
     except FileNotFoundError:
         accounts = []
     return accounts
+
+# Create Object Instagram Bot / return bot
+def create_bot(account):
+    bot = InstagramBot()
+    bot.login(email=account["username"], password=account["password"])
+    print("Test 003")
+    return bot
 
 def main():
 
@@ -23,6 +29,7 @@ def main():
 
     args = parser.parse_args()
 
+    print("Test 002")
     # def start_bot():
     accounts = load_accounts()
     if len(accounts) == 0:
@@ -32,7 +39,11 @@ def main():
         print("account exist")
 
     args = parser.parse_args()
-    print(args.hashtag)
+    hashtag = args.hashtag
+
+    create_bot(accounts[0])
+    # bot.login(links=post_links, comment=args.comment, delay_time=args.delay)
 
 if __name__ == "__main__":
     main()
+    print("Test 005")
