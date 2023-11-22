@@ -1,18 +1,38 @@
-import time
-import undetected_chromedriver as uc
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+import argparse
+import json
+from InstagramBot import InstagramBot
 
-# set driver options
-chrome_options = Options()
-chrome_options.add_argument("--window-size=930,820")
-driver = uc.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+def load_accounts():
+    print("test 003")
+    try:
+        with open("accounts.json", "r") as file:
+            accounts = json.load(file)
+            print(accounts)
+    except FileNotFoundError:
+        accounts = []
+    return accounts
 
-# main steps
-driver.get("https://www.instagram.com")
+def main():
 
-print("Test 001")
-time.sleep(10)
+    # init parser
+    parser = argparse.ArgumentParser(description="Instagram Bot")
+    # parser options
+    parser.add_argument("-ht", "--hashtag", help="Hashtag to scrape posts from")
+    parser.add_argument("-cm", "--message", help="Comment or message to post")
+    parser.add_argument("-del", "--delay", type=int, default=5, help="Delay in seconds between actions")
 
-driver.close()
+    args = parser.parse_args()
+
+    # def start_bot():
+    accounts = load_accounts()
+    if len(accounts) == 0:
+        print("end", "No accounts found. Please add accounts first.\n")
+        return
+    else:
+        print("account exist")
+
+    args = parser.parse_args()
+    print(args.hashtag)
+
+if __name__ == "__main__":
+    main()
