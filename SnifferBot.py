@@ -17,9 +17,53 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class SnifferBot:
 
+    archiwum = []
+    buffor = []
+
     def __init__(self):
         print("sniffer run")
 
 
-    def main(komunikat):
-        print(komunikat)
+    def load_archiwum(self):
+        try:
+            with open("archiwum.json", "r") as file:
+                self.archiwum = json.load(file)
+        except FileNotFoundError:
+            self.archiwum = []
+
+    def load_buffor(self):
+        try:
+            with open("buffor.json", "r") as file:
+                self.buffor = json.load(file)
+        except FileNotFoundError:
+            self.buffor = []
+
+
+    def main(self, posts):
+
+        self.load_archiwum()
+        self.load_buffor()
+
+        for post in posts:
+            print(post)
+            print(self.archiwum)
+            try:
+                href = post.get_attribute("href")
+                
+                if href in self.archiwum: 
+                    print("exist") 
+                else: 
+                    self.buffor.append(href)
+                    self.archiwum.append(href)
+                    
+            except NoSuchElementException: 
+                print("Href not exist")
+
+            # save archiwum and bufor
+        with open("archiwum.json", "w") as file:
+            json.dump(self.archiwum, file)
+        with open("buffor.json", "w") as file:
+            json.dump(self.buffor, file)
+
+
+

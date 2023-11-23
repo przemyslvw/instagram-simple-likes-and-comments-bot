@@ -50,21 +50,21 @@ class InstagramBot:
 
         time.sleep(1)
         self.driver.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
-        time.sleep(12)
+        # Wait for the posts to load
+        time.sleep(10)
 
         self.cookies_checker()
 
-        # Wait for the posts to load
         # wait = WebDriverWait(self.driver, 10)
         # wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="mount_0_0_GQ"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div[2]/div')))
         most_recent = self.driver.find_element(By.CLASS_NAME, "_aaq8")
         # Scrape the most recent posts from the hashtag
         posts = most_recent.find_elements(By.TAG_NAME, "a")
-        print(posts, "Links ready!")
+        # print(posts, "Links ready!")
 
         time.sleep(12)
         # sniffer run
-        SnifferBot.main(posts)
+        SnifferBot().main(posts)
         links = []
         for post in posts:
             # Retrieve the href attribute value
