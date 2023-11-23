@@ -38,12 +38,13 @@ def main():
     else:
         print("account exist")
 
-    args = parser.parse_args()
+    # args = parser.parse_args()
     hashtag = args.hashtag
+    print(hashtag)
 
     create_bot(accounts[0])
     # bot.login(links=post_links, comment=args.comment, delay_time=args.delay)
-
+print(__name__)
 if __name__ == "__main__":
     main()
     print("Test 005")
