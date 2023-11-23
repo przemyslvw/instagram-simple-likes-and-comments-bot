@@ -1,5 +1,5 @@
 import time
-
+import json
 import undetected_chromedriver as uc
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,6 +15,8 @@ from SnifferBot import SnifferBot
 
 class InstagramBot:
 
+    comments = []
+
     def __init__(self):
         print("Test 001")
         chrome_options = Options()
@@ -23,6 +25,13 @@ class InstagramBot:
         # Use webdriver_manager to automatically download and manage the ChromeDriver
         # add undetected_chromedriver here 
         self.driver = uc.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+    def load_comments(self):
+        try:
+            with open("comments.json", "r") as file:
+                self.comments = json.load(file)
+        except FileNotFoundError:
+            self.comments = []
 
     # cookies popup checker 
     def cookies_exist(self) -> bool:
