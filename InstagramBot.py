@@ -46,7 +46,6 @@ class InstagramBot:
         
     def scrape_explore_posts(self, hashtag):
 
-
         # Open Instagram and navigate to the hashtag page
         print("Open Instagram explore page")
 
@@ -101,8 +100,6 @@ class InstagramBot:
             href = post.get_attribute("href")
             # Process each href as needed
             links.append(href)
-            
-        
         # return links
     
                

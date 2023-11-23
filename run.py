@@ -14,6 +14,7 @@ def main():
 
     # main functions
     InstagramBot().scrape_hashtag_posts(args.hashtag)
+    InstagramBot().scrape_explore_posts(args.hashtag)
 
 if __name__ == "__main__":
     main()
