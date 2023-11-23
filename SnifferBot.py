@@ -40,6 +40,7 @@ class SnifferBot:
 
 
     def save_to_archiwum(self, href):
+        self.load_archiwum()
         self.archiwum.append(href)
         with open("archiwum.json", "w") as file:
             json.dump(self.archiwum, file)
