@@ -44,6 +44,36 @@ class InstagramBot:
             print("cookies button not exist")
 
         
+    def scrape_explore_posts(self, hashtag):
+
+
+        # Open Instagram and navigate to the hashtag page
+        print("Open Instagram explore page")
+
+        time.sleep(1)
+        self.driver.get(f"https://www.instagram.com/explore/")
+        # Wait for the posts to load
+        time.sleep(10)
+
+        self.cookies_checker()
+
+        most_recent = self.driver.find_element(By.CLASS_NAME, "x1gryazu")
+        # Scrape the most recent posts from the hashtag
+        posts = most_recent.find_elements(By.TAG_NAME, "a")
+        # print(posts, "Links ready!")
+
+        time.sleep(12)
+        # sniffer run
+        SnifferBot().main(posts)
+        links = []
+        for post in posts:
+            # Retrieve the href attribute value
+            href = post.get_attribute("href")
+            # Process each href as needed
+            links.append(href)
+        
+        # return links
+
     def scrape_hashtag_posts(self, hashtag):
         # Open Instagram and navigate to the hashtag page
         print("Open Instagram and navigate to the hashtag page")
@@ -71,8 +101,9 @@ class InstagramBot:
             href = post.get_attribute("href")
             # Process each href as needed
             links.append(href)
+            
         
-        return links
+        # return links
     
                
     def login(self, email, password):
