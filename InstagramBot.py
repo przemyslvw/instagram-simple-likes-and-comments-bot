@@ -17,6 +17,13 @@ class InstagramBot:
 
     comments = []
 
+    def load_comments(self):
+        try:
+            with open("comments.json", "r") as file:
+                self.comments = json.load(file)
+        except FileNotFoundError:
+            self.comments = []
+
     def __init__(self):
         print("Test 001")
         chrome_options = Options()
@@ -26,12 +33,9 @@ class InstagramBot:
         # add undetected_chromedriver here 
         self.driver = uc.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-    def load_comments(self):
-        try:
-            with open("comments.json", "r") as file:
-                self.comments = json.load(file)
-        except FileNotFoundError:
-            self.comments = []
+        self.load_comments()
+
+
 
     # cookies popup checker 
     def cookies_exist(self) -> bool:
@@ -120,13 +124,7 @@ class InstagramBot:
         # Wait for the login elements to become available
         wait = WebDriverWait(self.driver, 10)
         # Find the cookies button
-        if self.cookies_exist():
-            cookies_input = self.driver.find_element(By.CLASS_NAME, "_a9--")
-            cookies_input.click()
-            time.sleep(1)
-        else:
-            print("cookies button not exist")
-        # time.sleep(5)
+        self.cookies_checker()
 
         email_field = wait.until(EC.presence_of_element_located((By.NAME, "username")))
         password_field = wait.until(EC.presence_of_element_located((By.NAME, "password")))
