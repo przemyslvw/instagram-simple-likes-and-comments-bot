@@ -34,8 +34,49 @@ class InstagramBot:
             
         except:
             return False
+        
+    def cookies_checker(self):
+        if self.cookies_exist():
+            cookies_input = self.driver.find_element(By.CLASS_NAME, "_a9--")
+            cookies_input.click()
+            time.sleep(1)
+        else:
+            print("cookies button not exist")
+
+        
+    def scrape_hashtag_posts(self, hashtag):
+        # Open Instagram and navigate to the hashtag page
+        print("Open Instagram and navigate to the hashtag page")
+
+        time.sleep(1)
+        self.driver.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
+        time.sleep(12)
+
+        self.cookies_checker()
+
+        # Wait for the posts to load
+        # wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="mount_0_0_GQ"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div[2]/div')))
+        most_recent = self.driver.find_element(By.CLASS_NAME, "_aaq8")
+        # Scrape the most recent posts from the hashtag
+        posts = most_recent.find_elements(By.TAG_NAME, "a")
+        print(posts, "Links ready!")
+
+        time.sleep(12)
+        # sniffer run
+        SnifferBot.main(posts)
+        links = []
+        for post in posts:
+            # Retrieve the href attribute value
+            href = post.get_attribute("href")
+            # Process each href as needed
+            links.append(href)
+        
+        return links
+    
                
     def login(self, email, password):
+        print("login page")
         # Open Instagram
         self.driver.get("https://www.instagram.com/")
         time.sleep(5)
@@ -60,10 +101,6 @@ class InstagramBot:
         # # Submit the login form
         # password_field.send_keys(Keys.RETURN)
 
-        # run sniffer
-        print("Test 006")
-        SnifferBot.main("siem")
-        print("Test 007")
 
         # Wait for the login process to complete (you may need to adjust the delay based on your internet speed)
         time.sleep(5)  # Wait for 5 seconds (adjust as needed)
