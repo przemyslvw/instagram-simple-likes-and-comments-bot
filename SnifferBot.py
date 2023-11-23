@@ -39,6 +39,12 @@ class SnifferBot:
             self.buffor = []
 
 
+    def save_to_archiwum(self, href):
+        self.archiwum.append(href)
+        with open("archiwum.json", "w") as file:
+            json.dump(self.archiwum, file)
+
+
     def main(self, posts):
 
         self.load_archiwum()
@@ -54,14 +60,12 @@ class SnifferBot:
                     print("exist") 
                 else: 
                     self.buffor.append(href)
-                    self.archiwum.append(href)
+
                     
             except NoSuchElementException: 
                 print("Href not exist")
 
             # save archiwum and bufor
-        with open("archiwum.json", "w") as file:
-            json.dump(self.archiwum, file)
         with open("buffor.json", "w") as file:
             json.dump(self.buffor, file)
 
