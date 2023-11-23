@@ -11,10 +11,12 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 
+from SnifferBot import SnifferBot
+
 class InstagramBot:
 
-    print("Test 001")
     def __init__(self):
+        print("Test 001")
         chrome_options = Options()
         chrome_options.add_argument("--window-size=930,820")
         # chrome_options.add_argument("--start-maximized")  # Maximize the Chrome window
@@ -32,7 +34,7 @@ class InstagramBot:
             
         except:
             return False
-        
+               
     def login(self, email, password):
         # Open Instagram
         self.driver.get("https://www.instagram.com/")
@@ -46,7 +48,7 @@ class InstagramBot:
             time.sleep(1)
         else:
             print("cookies button not exist")
-        time.sleep(5)
+        # time.sleep(5)
 
         email_field = wait.until(EC.presence_of_element_located((By.NAME, "username")))
         password_field = wait.until(EC.presence_of_element_located((By.NAME, "password")))
@@ -58,8 +60,13 @@ class InstagramBot:
         # # Submit the login form
         # password_field.send_keys(Keys.RETURN)
 
+        # run sniffer
+        print("Test 006")
+        SnifferBot.main("siem")
+        print("Test 007")
+
         # Wait for the login process to complete (you may need to adjust the delay based on your internet speed)
         time.sleep(5)  # Wait for 5 seconds (adjust as needed)
 
-    
-    time.sleep(10)
+        self.driver.quit()
+    time.sleep(5)
