@@ -18,6 +18,11 @@ def load_buffor():
         buffor = []
     return buffor
 
+def create_bot(account):
+    bot = InstagramBot()
+    bot.login(email=account["username"], password=account["password"])
+    return bot
+
 def main():
 
     # init parser
@@ -29,15 +34,17 @@ def main():
     args = parser.parse_args()
     accounts = load_accounts()
     buffor = load_buffor()
-
-    print(accounts[0])
+    
+    # print(accounts[0])
     print(buffor)
+    print(args.hashtag)
 
 
     # main functions / loading to buffor JSON
-    # bot = create_bot(accounts[0])
+    bot = create_bot(accounts[0])
     # bot.scrape_hashtag_posts(args.hashtag)
     # bot.scrape_explore_posts(args.hashtag)
+    bot.comment_on_posts(links=buffor, comment=args.message, delay_time=args.delay)
     # like and comment
     # InstagramBot().load_comments()
 
