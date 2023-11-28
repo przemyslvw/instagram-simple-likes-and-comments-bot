@@ -42,17 +42,24 @@ def main():
     # print(loadcomments)
     # quit()
     # print(accounts[0])
-    print(buffor)
+    # print(buffor)
     print(args.hashtag)
 
 
     # main functions / loading to buffor JSON
     bot = create_bot(accounts[0])
     bot.scrape_hashtag_posts(args.hashtag)
-    bot.scrape_explore_posts(args.hashtag)
-    print(buffor)
-    quit()
-    bot.comment_on_posts(links=buffor, lcomments=loadcomments, delay_time=args.delay)
+    # bot.scrape_explore_posts(args.hashtag)
+    print(len(load_buffor()))
+    while (len(load_buffor()) >= 0):
+        print("new loop")
+        if len(load_buffor()) == 0:
+            bot.scrape_explore_posts(args.hashtag)
+            bot.scrape_hashtag_posts(args.hashtag)
+        else:
+            None
+
+        bot.comment_on_posts(links=load_buffor(), lcomments=loadcomments, delay_time=args.delay)
     # like and comment
     # InstagramBot().load_comments()
 
