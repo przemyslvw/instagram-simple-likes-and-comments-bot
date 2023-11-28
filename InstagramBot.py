@@ -28,14 +28,24 @@ class InstagramBot:
 
     # cookies popup checker 
     def cookies_exist(self) -> bool:
-        wait = WebDriverWait(self.driver, 10)
-        cookies = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "_a9--")))
-        try: 
-            cookies
-            return True
+        # wait = WebDriverWait(self.driver, 10)
+        # cookies = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "_a9--")))
+        # try: 
+        #     cookies
+        #     return True
             
-        except:
+        # except:
+        #     return False
+        
+        
+        try:
+            self.driver.find_element(By.CLASS_NAME, "_a9--")
+            print("True, jest like button zaznaczony")
             return False
+            
+        except NoSuchElementException: 
+            print("False, nie zaznaczone LIKE BUTTON")
+            return True
         
     def cookies_checker(self):
         if self.cookies_exist():
