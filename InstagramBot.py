@@ -16,8 +16,6 @@ from SnifferBot import SnifferBot
 
 class InstagramBot:
 
-    comments = ["Awesome 👌","Great shot! 👍","👌","🔥🔥🔥🔥🔥","Beautiful 🥰","Amazing pic! 👌","😍","🤩","👌","👍","🥰","🥰","Piękne ujęcie! 😊", "Fantastyczne miejsce! 🌍", "To zdjęcie emanuje pozytywną energią! ✨", "Cudowne wspomnienia w jednym kadrze! 📸", "Styl i elegancja! 👌", "Piękne kolory! 🎨", "Doskonałe uchwycenie chwili! 📷", "Jesteś inspiracją dla innych! 💪", "Przyjemne dla oka 😊", "Piekne detale! 👌", "Świetnie dobrany kadr! 🎨", "Pełne pozytywnej energii! 👌", "Kreatywność w każdym detalu, niesamowite! 👌", "Wyjątkowa kompozycja, naprawdę piękne! 👌", "Mistrzowskie! 👌", "Cudowne kolory! 👌", "Uchwycone detale robią wrażenie! 👌", "Zazdroszczę! 😊", "Atmosfera niesamowita! 😊", "Cudownie uchwycona chwila! 😊", "Inspirujące! Propsy 👏", "Fajny kadr! 👌", "Pięknie! 😊", "Tam faktycznie jest tak bajkowo? 🤩", "Nie mogę się oderwać! Świetne zdjęcie! 😊", "Pięknie, czekam na więcej! 🌟"]
-
     def __init__(self):
         print("Test 001")
         chrome_options = Options()
@@ -155,11 +153,11 @@ class InstagramBot:
 
         # self.driver.quit()
     
-    def comment_on_posts(self, links, comment, delay_time):
+    def comment_on_posts(self, links, lcomments, delay_time):
 
         for link in links:
             # Open each post link
-            comments=self.comments
+            comments = lcomments
             comment = random.choice(comments)
             self.driver.get(link)
 
