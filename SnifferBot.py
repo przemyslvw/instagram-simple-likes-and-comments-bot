@@ -42,7 +42,7 @@ class SnifferBot:
         self.load_buffor()
 
         try:    
-            if href in self.archiwum or href in self.buffor: 
+            if href in self.archiwum or href in self.buffor or href[0:27] != "https://www.instagram.com/p": 
                 # print("exist") 
                 if href in self.buffor: 
                     self.buffor.remove(href)
@@ -70,16 +70,17 @@ class SnifferBot:
             # print(self.archiwum)
             try:
                 href = post.get_attribute("href")
-                
-                if href in self.archiwum: 
+                # print(href[0:27]) 
+                # only correct link instagram photos (p)
+                if href[0:27] == "https://www.instagram.com/p":
+                    self.buffor.append(href)
+                else: 
                     # print("exist") 
                     if href in self.buffor: 
                         self.buffor.remove(href)
                     else:
                         # print("nie ma w buforze")
                         None
-                else: 
-                    self.buffor.append(href)
 
             except NoSuchElementException: 
                 # print("Href not exist")
