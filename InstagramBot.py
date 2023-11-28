@@ -17,7 +17,7 @@ from SnifferBot import SnifferBot
 class InstagramBot:
 
     def __init__(self):
-        print("Test 001")
+        # print("Test 001")
         chrome_options = Options()
         chrome_options.add_argument("--window-size=930,820")
         # chrome_options.add_argument("--start-maximized")  # Maximize the Chrome window
@@ -31,11 +31,11 @@ class InstagramBot:
    
         try:
             self.driver.find_element(By.CLASS_NAME, "_a9--")
-            print("True, jest like button zaznaczony")
+            # print("True, jest like button zaznaczony")
             return True
             
         except NoSuchElementException: 
-            print("False, nie zaznaczone LIKE BUTTON")
+            # print("False, nie zaznaczone LIKE BUTTON")
             return False
         
     def cookies_checker(self):
@@ -44,13 +44,14 @@ class InstagramBot:
             cookies_input.click()
             time.sleep(1)
         else:
-            print("cookies button not exist")
+            # print("cookies button not exist")
+            None
 
         
     def scrape_explore_posts(self, hashtag):
 
         # Open Instagram and navigate to the hashtag page
-        print("Open Instagram explore page")
+        # print("Open Instagram explore page")
 
         time.sleep(1)
         self.driver.get(f"https://www.instagram.com/explore/")
@@ -78,7 +79,7 @@ class InstagramBot:
 
     def scrape_hashtag_posts(self, hashtag):
         # Open Instagram and navigate to the hashtag page
-        print("Open Instagram and navigate to the hashtag page")
+        # print("Open Instagram and navigate to the hashtag page")
 
         time.sleep(1)
         self.driver.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
@@ -111,25 +112,25 @@ class InstagramBot:
         try:
             # self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
             self.driver.find_element(By.XPATH, "//*[name()='svg' and @aria-label='Nie lubię']")
-            print("True, jest like button zaznaczony")
+            # print("True, jest like button zaznaczony")
             return True
             
         except NoSuchElementException: 
-            print("False, nie zaznaczone LIKE BUTTON")
+            # print("False, nie zaznaczone LIKE BUTTON")
             return False
 
     # check comment area
     def comment_exist(self) -> bool:
         try:
             self.driver.find_element(By.CSS_SELECTOR, 'textarea[aria-label="Dodaj komentarz..."]')
-            print("True, jest comment area")
+            # print("True, jest comment area")
             return True
         except NoSuchElementException: 
-            print("False, nie ma comment area")
+            # print("False, nie ma comment area")
             return False
                
     def login(self, email, password):
-        print("login page")
+        # print("login page")
         # Open Instagram
         self.driver.get("https://www.instagram.com/")
         time.sleep(5)
@@ -166,7 +167,7 @@ class InstagramBot:
             
             # Find the comment input field
             if self.like_exist():
-                print("zaznaczony")
+                # print("zaznaczony")
                 SnifferBot().save_to_archiwum(link)
             else:
                 like_input = self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
@@ -184,28 +185,31 @@ class InstagramBot:
                     # Perform the actions
                     actions.perform()
                 else:
-                    print("comment imput not exist")
+                    # print("comment imput not exist")
+                    None
 
-                try:
-                    most_recent = self.driver.find_element(By.CLASS_NAME, "_ac7v")
-                    # Scrape the most recent posts from the hashtag
-                    posts = most_recent.find_elements(By.TAG_NAME, "a")
-                    print(posts, "Bottom links ready!")
-                    for post in posts:
-                        # Retrieve the href attribute value
-                        try:
-                            print(post.get_attribute("href"))
-                    
-                            SnifferBot().save_to_buffor(post.get_attribute("href"))
-                                
-                        except NoSuchElementException: 
-                            print("Href not exist")
+            try:
+                most_recent = self.driver.find_element(By.CLASS_NAME, "_ac7v")
+                # Scrape the most recent posts from the hashtag
+                posts = most_recent.find_elements(By.TAG_NAME, "a")
+                # print(posts, "Bottom links ready!")
+                for post in posts:
+                    # Retrieve the href attribute value
+                    try:
+                        # print(post.get_attribute("href"))
+                
+                        SnifferBot().save_to_buffor(post.get_attribute("href"))
+                            
+                    except NoSuchElementException: 
+                        # print("Href not exist")
+                        None
 
-                except NoSuchElementException: 
-                    print("False, bottom area false")
-                    
-                # after add comment save link to arhivum
-                SnifferBot().save_to_archiwum(link)
+            except NoSuchElementException: 
+                # print("False, bottom area false")
+                None
+                
+            # after add comment save link to arhivum
+            SnifferBot().save_to_archiwum(link)
 
         time.sleep(delay_time)
 

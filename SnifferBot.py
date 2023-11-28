@@ -21,7 +21,8 @@ class SnifferBot:
     buffor = []
 
     def __init__(self):
-        print("sniffer run")
+        # print("sniffer run")
+        None
 
     def load_archiwum(self):
         try:
@@ -39,9 +40,16 @@ class SnifferBot:
 
     def save_to_archiwum(self, href):
         self.load_archiwum()
+        self.load_buffor()
         self.archiwum.append(href)
         with open("archiwum.json", "w") as file:
             json.dump(self.archiwum, file)
+        if href in self.buffor: 
+            self.buffor.remove(href)
+            with open("buffor.json", "w") as file:
+                json.dump(self.buffor, file)
+        else:
+            None
 
     def save_to_buffor(self, href):
         self.load_archiwum()
@@ -49,19 +57,21 @@ class SnifferBot:
 
         try:    
             if href in self.archiwum or href in self.buffor: 
-                print("exist") 
+                # print("exist") 
                 if href in self.buffor: 
                     self.buffor.remove(href)
                     with open("buffor.json", "w") as file:
                         json.dump(self.buffor, file)
                 else:
-                    print("not exist in buffor")
+                    None
+                #     print("not exist in buffor")
             else: 
                 self.buffor.append(href)
                 with open("buffor.json", "w") as file:
                     json.dump(self.buffor, file)
         except NoSuchElementException: 
-            print("Href not exist")
+            # print("Href not exist")
+            None
 
 
     def main(self, posts):
@@ -70,22 +80,24 @@ class SnifferBot:
         self.load_buffor()
 
         for post in posts:
-            print(post)
-            print(self.archiwum)
+            # print(post)
+            # print(self.archiwum)
             try:
                 href = post.get_attribute("href")
                 
                 if href in self.archiwum: 
-                    print("exist") 
+                    # print("exist") 
                     if href in self.buffor: 
                         self.buffor.remove(href)
                     else:
-                        print("nie ma w buforze")
+                        # print("nie ma w buforze")
+                        None
                 else: 
                     self.buffor.append(href)
 
             except NoSuchElementException: 
-                print("Href not exist")
+                # print("Href not exist")
+                None
 
             # save archiwum and bufor
         with open("buffor.json", "w") as file:
