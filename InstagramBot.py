@@ -112,11 +112,11 @@ class InstagramBot:
             # self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
             self.driver.find_element(By.XPATH, "//*[name()='svg' and @aria-label='Nie lubię']")
             print("True, jest like button zaznaczony")
-            return False
+            return True
             
         except NoSuchElementException: 
             print("False, nie zaznaczone LIKE BUTTON")
-            return True
+            return False
 
     # check comment area
     def comment_exist(self) -> bool:
@@ -166,6 +166,9 @@ class InstagramBot:
             
             # Find the comment input field
             if self.like_exist():
+                print("zaznaczony")
+                SnifferBot().save_to_archiwum(link)
+            else:
                 like_input = self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
                 like_input.click()
                 time.sleep(2)
@@ -191,18 +194,18 @@ class InstagramBot:
                     for post in posts:
                         # Retrieve the href attribute value
                         try:
-                            href = post.get_attribute("href")
-                            
-                            SnifferBot().save_to_archiwum(href)
+                            print(post.get_attribute("href"))
+                    
+                            SnifferBot().save_to_buffor(post.get_attribute("href"))
                                 
                         except NoSuchElementException: 
                             print("Href not exist")
 
                 except NoSuchElementException: 
                     print("False, bottom area false")
-
-            else:
-                print("zaznaczony")
+                    
+                # after add comment save link to arhivum
+                SnifferBot().save_to_archiwum(link)
 
         time.sleep(delay_time)
 
