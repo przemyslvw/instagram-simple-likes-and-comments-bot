@@ -64,7 +64,7 @@ class InstagramBot:
         posts = most_recent.find_elements(By.TAG_NAME, "a")
         # print(posts, "Links ready!")
 
-        time.sleep(12)
+        time.sleep(5)
         # sniffer run
         SnifferBot().main(posts)
         links = []
@@ -83,7 +83,7 @@ class InstagramBot:
         time.sleep(1)
         self.driver.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
         # Wait for the posts to load
-        time.sleep(10)
+        time.sleep(5)
 
         self.cookies_checker()
 
@@ -94,7 +94,7 @@ class InstagramBot:
         posts = most_recent.find_elements(By.TAG_NAME, "a")
         # print(posts, "Links ready!")
 
-        time.sleep(12)
+        time.sleep(5)
         # sniffer run
         SnifferBot().main(posts)
         links = []
