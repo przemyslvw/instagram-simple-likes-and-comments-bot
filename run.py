@@ -61,14 +61,20 @@ def main():
 
     # main functions / loading to buffor JSON
     bot = create_bot(accounts[0])
-    bot.scrape_hashtag_posts(args.hashtag)
+    if type(args.message) == str:
+        bot.scrape_hashtag_posts(args.hashtag)
+    else:
+        bot.scrape_explore_posts(args.hashtag)
     # bot.scrape_explore_posts(args.hashtag)
-    print(len(load_buffor()))
+    # print(len(load_buffor()))
     while (len(load_buffor()) >= 0):
         print("new loop")
         if len(load_buffor()) == 0:
             bot.scrape_explore_posts(args.hashtag)
-            bot.scrape_hashtag_posts(args.hashtag)
+            if type(args.message) == str:
+                bot.scrape_hashtag_posts(args.hashtag)
+            else:
+                None
         else:
             None
 
@@ -80,3 +86,4 @@ def main():
 if __name__ == "__main__":
     main()
     print("END")
+    quit()
