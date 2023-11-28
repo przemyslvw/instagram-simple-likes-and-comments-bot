@@ -27,6 +27,15 @@ def create_bot(account):
     bot.login(email=account["username"], password=account["password"])
     return bot
 
+def add_comment(message):
+        comments = load_comments()
+        if message in comments: 
+            None
+        else:
+            comments.append(message)
+            with open("comments.json", "w") as file:
+                json.dump(comments, file)
+
 def main():
 
     # init parser
@@ -39,11 +48,15 @@ def main():
     accounts = load_accounts()
     buffor = load_buffor()
     loadcomments = load_comments()
-    # print(loadcomments)
+
+    if type(args.message) == str:
+        add_comment(args.message)
+    else:
+        None
     # quit()
     # print(accounts[0])
     # print(buffor)
-    print(args.hashtag)
+    # print(args)
 
 
     # main functions / loading to buffor JSON
