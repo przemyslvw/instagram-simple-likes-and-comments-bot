@@ -2,28 +2,24 @@ import json
 import argparse
 from InstagramBot import InstagramBot
 
-def load_comments():
+def load_json(name):
     try:
-        with open("comments.json", "r") as file:
-            comments = json.load(file)
+        with open(name, "r") as file:
+            json_content = json.load(file)
     except FileNotFoundError:
-        comments = []
+        json_content = []
+    return json_content
+
+def load_comments():
+    comments = load_json("comments.json")
     return comments
 
 def load_accounts():
-    try:
-        with open("accounts.json", "r") as file:
-            accounts = json.load(file)
-    except FileNotFoundError:
-        accounts = []
+    accounts = load_json("accounts.json")
     return accounts
 
 def load_buffor():
-    try:
-        with open("buffor.json", "r") as file:
-            buffor = json.load(file)
-    except FileNotFoundError:
-        buffor = []
+    buffor = load_json("buffor.json")
     return buffor
 
 def create_bot(account):
@@ -52,8 +48,10 @@ def main():
 
     # main functions / loading to buffor JSON
     bot = create_bot(accounts[0])
-    # bot.scrape_hashtag_posts(args.hashtag)
-    # bot.scrape_explore_posts(args.hashtag)
+    bot.scrape_hashtag_posts(args.hashtag)
+    bot.scrape_explore_posts(args.hashtag)
+    print(buffor)
+    quit()
     bot.comment_on_posts(links=buffor, lcomments=loadcomments, delay_time=args.delay)
     # like and comment
     # InstagramBot().load_comments()
