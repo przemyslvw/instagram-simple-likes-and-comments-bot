@@ -1,5 +1,4 @@
 import time
-import json
 import random
 import undetected_chromedriver as uc
 
