@@ -12,12 +12,17 @@ Nie wchodzi ponownie na te same posty (z archiwum.json).
 without HTTP error 429 Instagram
 
 add to projest accounts.json
+
 [{"username": "your.username", "password": "your.password"}]
 
 commands:
+
 pip install -r requirements.txt
+
 python run.py
 
 "-ht", "--hashtag", help="Hashtag to scrape posts from"
+
 "-cm", "--message", help="Comment or message to post"
+
 "-del", "--delay", type=int, default=5, help="Delay in seconds between actions"
