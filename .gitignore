@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 /accounts.json
+/accounts copy.json
 
 # Environment variables
 .env
