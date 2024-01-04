@@ -160,6 +160,8 @@ class InstagramBot:
             # Open each post link
             comments = lcomments
             comment = random.choice(comments)
+            emois = [" 👍", " 🔥", " 👌", " 💎", " 🌟", " 😍"]
+            emoi = random.choice(emois)
             self.driver.get(link)
 
             time.sleep(5)
@@ -179,7 +181,7 @@ class InstagramBot:
                     time.sleep(2)
                     # Create an instance of ActionChains
                     actions = ActionChains(self.driver)
-                    actions.send_keys(comment)
+                    actions.send_keys(comment+emoi)
                     actions.send_keys(Keys.RETURN)
                     # Perform the actions
                     actions.perform()
