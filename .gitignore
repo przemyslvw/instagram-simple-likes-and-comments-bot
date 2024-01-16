@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 /accounts.json
 /accounts copy.json
+/archiwum copy.json
+/buffor.json
 
 # Environment variables
 .env
