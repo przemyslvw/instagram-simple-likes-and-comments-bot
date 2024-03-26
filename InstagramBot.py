@@ -89,7 +89,7 @@ class InstagramBot:
 
         # wait = WebDriverWait(self.driver, 10)
         # wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="mount_0_0_GQ"]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div[2]/div')))
-        most_recent = self.driver.find_element(By.CLASS_NAME, "_aaq8")
+        most_recent = self.driver.find_element(By.CLASS_NAME, "_ac7v")
         # Scrape the most recent posts from the hashtag
         posts = most_recent.find_elements(By.TAG_NAME, "a")
         # print(posts, "Links ready!")
@@ -171,8 +171,11 @@ class InstagramBot:
                 # print("zaznaczony")
                 SnifferBot().save_to_archiwum(link)
             else:
-                like_input = self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
-                like_input.click()
+                try:
+                    like_input = self.driver.find_element(By.CLASS_NAME, "xp7jhwk")
+                    like_input.click()
+                except NoSuchElementException:
+                    print("Element .xp7jhwk does not exist, continuing...")
                 time.sleep(2)
 
                 if self.comment_exist():
