@@ -6,6 +6,11 @@ __pycache__/
 /accounts copy.json
 /archiwum copy.json
 /buffor.json
+archiwum.json
+buffor.json
+comments.json
+buffor.json
+comments.json
 
 # Environment variables
 .env
