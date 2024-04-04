@@ -1,5 +1,5 @@
 # pip install -r requirements.txt
 # pip install setuptools
+# undetected-chromedriver
 selenium
 webdriver_manager
-undetected-chromedriver
